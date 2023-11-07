@@ -1,12 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Header } from './Header';
 
 export const Login = () => {
     return (
         <Container>
             <Content>
+                <Header />
                 <CTA>
                     <CTALogoOne src="/src/images/cta-logo-one.svg" />
+                    <SingUp>GET ALL THERE</SingUp>
+                    <Description>Get Premier Acces to Raya and Last Dragon for an additional fee with a Dinsey+ subscription. As of 07/11/2023, the price of Disney+ and The  Disney Buindle will increase by $1.</Description>
+                    <CTALogoTwo src="/src/images/cta-logo-two.png" />
                 </CTA>
                 <BgImage />
             </Content>
@@ -61,5 +66,38 @@ const CTALogoOne = styled.img`
     max-width: 600px;
     min-height: 1px;
     display: block;
+    width: 100%;
+`;
+
+const SingUp = styled.a`
+    font-weight: bold;
+    color: #f9f9f9;
+    background-color: #0063e5;
+    margin-bottom: 12px;
+    width: 100%;
+    letter-spacing: 1.5px;
+    font-size: 18px;
+    padding: 16.5px 0px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: #0483ee;
+    }
+`;
+
+const Description = styled.p`
+    color: hsla(0,0%,95.3%,1);
+    font-size: 11px;
+    margin: 0 0 24px;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+`;
+
+const CTALogoTwo = styled.img`
+    max-width: 600px;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: bottom;
     width: 100%;
 `;
