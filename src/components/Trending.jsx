@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const Originals = (props) => {
+export const Trending = (props) => {
     return (
         <Container>
-            <h4>Originals</h4>
+            <h4>New to Disney+</h4>
             <Content>
                 <Wrap>
                     <Link to="/">

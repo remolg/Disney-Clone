@@ -5,6 +5,7 @@ import { Viewers } from './Viewers'
 import { Recommends } from './Recommends'
 import { NewDisney } from './NewDisney'
 import { Originals } from './Originals'
+import { Trending } from './Trending'
 
 export const Home = (props) => {
     return (
@@ -14,6 +15,7 @@ export const Home = (props) => {
             <Recommends />
             <NewDisney />
             <Originals />
+            <Trending />
         </Container>
     )
 }
