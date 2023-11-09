@@ -4,7 +4,7 @@ import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { selectUserName, selectUserPhoto, setUserLoginDetails } from '../features/user/userSlice'
+import { selectUserName, selectUserPhoto, setSignOutState, setUserLoginDetails } from '../features/user/userSlice'
 
 export const Header = (props) => {
 
@@ -13,15 +13,32 @@ export const Header = (props) => {
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
 
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setUser(user);
+                history('/home');
+            }
+        });
+    }, [userName]);
 
     const handleAuth = () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                setUser(result.user);
+        if (!userName) {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    setUser(result.user);
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        } else if (userName) {
+            auth.signOut().then(() => {
+                dispatch(setSignOutState(null));
+                history('/');
+            }).catch((err) => {
+                alert(err.message);
             })
-            .catch((error) => {
-                alert(error.message);
-            });
+        }
     };
 
     const setUser = (user) => {
@@ -33,6 +50,8 @@ export const Header = (props) => {
             })
         );
     }
+
+
 
 
     return (
@@ -71,7 +90,12 @@ export const Header = (props) => {
                             <span>SERIES</span>
                         </a>
                     </NavMenu>
-                    <UserImg src={userPhoto} alt={userName} />
+                    <SignOut>
+                        <UserImg src={userPhoto} alt={userName} />
+                        <DropDown>
+                            <span onClick={handleAuth}>Sign out</span>
+                        </DropDown>
+                    </SignOut>
                 </>
             )}
         </Nav>
@@ -94,11 +118,11 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.a`
-    padding: 0;
+    padding: 0px;
     width: 80px;
     margin-top: 4px;
     max-height: 70px;
-    font-size: 0;
+    font-size: 0px;
     display: inline-block;
     img {
         display: block;
@@ -116,11 +140,11 @@ const NavMenu = styled.div`
     padding: 0px;
     position: relative;
     margin-right: auto;
-    margin-left: 25
+    margin-left: 25px;
     a {
         display: flex;
         align-items: center;
-        padding: 0 12
+        padding: 0px 12px;
     }
     img {
         height: 20px;
@@ -138,7 +162,7 @@ const NavMenu = styled.div`
         white-space: nowrap;
         position: relative;
 
-        &:before {
+        &::before {
             background-color: rgb(249, 249, 249);
             border-radius: 0px 0px 4px 4px;
             bottom: -6px;
@@ -154,8 +178,9 @@ const NavMenu = styled.div`
             visibility: hidden;
             width: auto;
         }
+
         &:hover {
-            span:before {
+            &::before {
                 transform: scaleX(1);
                 visibility: visible;
                 opacity: 1 !important;
@@ -166,7 +191,7 @@ const NavMenu = styled.div`
         @media (max-width: 768px) {
             display:none;
         }
-
+    
 `;
 
 const Login = styled.a`
@@ -183,8 +208,50 @@ const Login = styled.a`
         background-color: #f9f9f9;
         color: #000;
         border-color: transparent;
-    }`;
+}`;
 
 const UserImg = styled.img`
         height: 100%;          
-    `;
+`;
+
+const DropDown = styled.div`
+    position: absolute;
+    top: 48px;
+    right: 0px;
+    background: rgb(19, 19, 19);
+    border: 1px solid rgba(151, 151, 151, 0.34);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    width: 100px;
+    opacity: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+`;
+
+const SignOut = styled.div`
+    position: relative;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    ${UserImg} {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+
+    &:hover {
+        ${DropDown} {
+            opacity: 1;
+            transition-duration: 1s;
+        }
+    }
+`;
