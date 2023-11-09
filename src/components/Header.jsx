@@ -1,42 +1,82 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { auth, provider } from '../firebase'
+import { signInWithPopup } from 'firebase/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { selectUserName, selectUserPhoto, setUserLoginDetails } from '../features/user/userSlice'
 
-export const Header = () => {
+export const Header = (props) => {
+
+    const dispatch = useDispatch();
+    const history = useNavigate();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
+
+    const handleAuth = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                setUser(result.user);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    };
+
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            })
+        );
+    }
+
+
     return (
         <Nav>
             <Logo>
                 <img src="src/images/logo.svg" alt="" />
             </Logo>
-            <NavMenu>
-                <a href="/home">
-                    <img src="src/images/home-icon.svg" alt="Home" />
-                    <span>HOME</span>
-                </a>
-                <a href="/home">
-                    <img src="src/images/search-icon.svg" alt="Home" />
-                    <span>SEARCH</span>
-                </a>
-                <a href="/home">
-                    <img src="src/images/watchlist-icon.svg" alt="Home" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a href="/home">
-                    <img src="src/images/original-icon.svg" alt="Home" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a href="/home">
-                    <img src="src/images/movie-icon.svg" alt="Home" />
-                    <span>MOVIES</span>
-                </a>
-                <a href="/home">
-                    <img src="src/images/series-icon.svg" alt="Home" />
-                    <span>SERIES</span>
-                </a>
-            </NavMenu>
-            <Login>Login</Login>
+
+            {!userName ? (
+                <Login onClick={handleAuth}>Login</Login>
+            ) : (
+                <>
+                    <NavMenu>
+                        <a href="/home">
+                            <img src="src/images/home-icon.svg" alt="Home" />
+                            <span>HOME</span>
+                        </a>
+                        <a href="/search">
+                            <img src="src/images/search-icon.svg" alt="Home" />
+                            <span>SEARCH</span>
+                        </a>
+                        <a href="/watchlist">
+                            <img src="src/images/watchlist-icon.svg" alt="Home" />
+                            <span>WATCHLIST</span>
+                        </a>
+                        <a href="/original">
+                            <img src="src/images/original-icon.svg" alt="Home" />
+                            <span>ORIGINALS</span>
+                        </a>
+                        <a href="/movies">
+                            <img src="src/images/movie-icon.svg" alt="Home" />
+                            <span>MOVIES</span>
+                        </a>
+                        <a href="/series">
+                            <img src="src/images/series-icon.svg" alt="Home" />
+                            <span>SERIES</span>
+                        </a>
+                    </NavMenu>
+                    <UserImg src={userPhoto} alt={userName} />
+                </>
+            )}
         </Nav>
-    )
-}
+    );
+};
 
 const Nav = styled.nav`
     position: fixed;
@@ -76,62 +116,61 @@ const NavMenu = styled.div`
     padding: 0px;
     position: relative;
     margin-right: auto;
-    margin-left: 25px;
-
+    margin-left: 25
     a {
         display: flex;
         align-items: center;
-        padding: 0 12px;
+        padding: 0 12
+    }
+    img {
+        height: 20px;
+        min-width: 20px;
+        width: 20px;
+        z-index: auto;
+    }
 
-        img {
-            height: 20px;
-            min-width: 20px;
-            width: 20px;
-            z-index: auto;
+    span {
+        color: rgb(249, 249, 249);
+        font-size: 13px;
+        letter-spacing: 1.42px;
+        line-height: 1.08;
+        padding: 2px 0px;
+        white-space: nowrap;
+        position: relative;
+
+        &:before {
+            background-color: rgb(249, 249, 249);
+            border-radius: 0px 0px 4px 4px;
+            bottom: -6px;
+            content: "";
+            height: 2px;
+            left: 0px;
+            opacity: 0;
+            position: absolute;
+            right: 0px;
+            transform-origin: left center;
+            transform: scaleX(0);
+            transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            visibility: hidden;
+            width: auto;
         }
-        
-        span {
-            color: rgb(249, 249, 249);
-            font-size: 13px;
-            letter-spacing: 1.42px;
-            line-height: 1.08;
-            padding: 2px 0px;
-            white-space: nowrap;
-            position: relative;
-            
-            &:before {
-                background-color: rgb(249, 249, 249);
-                border-radius: 0px 0px 4px 4px;
-                bottom: -6px;
-                content: "";
-                height: 2px;
-                left: 0px;
-                opacity: 0;
-                position: absolute;
-                right: 0px;
-                transform-origin: left center;
-                transform: scaleX(0);
-                transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                visibility: hidden;
-                width: auto;
-            }
-        }
-        
         &:hover {
             span:before {
                 transform: scaleX(1);
                 visibility: visible;
                 opacity: 1 !important;
+                }
             }
         }
-    }
-        
-    @media (max-width: 768px) {
-        display:none;
-    }
+
+        @media (max-width: 768px) {
+            display:none;
+        }
+
 `;
 
 const Login = styled.a`
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.6);
     padding: 8px 16px;
     text-transform: uppercase;
@@ -144,5 +183,8 @@ const Login = styled.a`
         background-color: #f9f9f9;
         color: #000;
         border-color: transparent;
-    }
-`;
+    }`;
+
+const UserImg = styled.img`
+        height: 100%;          
+    `;
