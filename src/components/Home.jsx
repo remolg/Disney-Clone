@@ -9,6 +9,7 @@ import { Trending } from './Trending'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserName } from '../features/user/userSlice'
 import { collection, onSnapshot } from "firebase/firestore";
+
 import { db } from "../firebase";
 import { setMovies } from '../features/movie/movieSlice'
 
@@ -21,7 +22,9 @@ export const Home = (props) => {
     let trending = [];
 
     useEffect(() => {
+
         onSnapshot(collection(db, 'movies'), (snapshot) => {
+
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 switch (data.type) {
