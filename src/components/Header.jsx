@@ -5,6 +5,14 @@ import { signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { selectUserName, selectUserPhoto, setSignOutState, setUserLoginDetails } from '../features/user/userSlice'
+import logo from '../images/logo.svg'
+import homeIcon from '../images/home-icon.svg'
+import searchIcon from '../images/search-icon.svg'
+import watchlistIcon from '../images/watchlist-icon.svg'
+import originalIcon from '../images/original-icon.svg'
+import movieIcon from '../images/movie-icon.svg'
+import seriesIcon from '../images/series-icon.svg'
+
 
 export const Header = (props) => {
 
@@ -57,7 +65,7 @@ export const Header = (props) => {
     return (
         <Nav>
             <Logo>
-                <img src="src/images/logo.svg" alt="" />
+                <img src={logo} alt="" />
             </Logo>
 
             {!userName ? (
@@ -66,27 +74,27 @@ export const Header = (props) => {
                 <>
                     <NavMenu>
                         <a href="/home">
-                            <img src="src/images/home-icon.svg" alt="Home" />
+                            <img src={homeIcon} alt="Home" />
                             <span>HOME</span>
                         </a>
                         <a href="/search">
-                            <img src="src/images/search-icon.svg" alt="Home" />
+                            <img src={searchIcon} alt="Home" />
                             <span>SEARCH</span>
                         </a>
                         <a href="/watchlist">
-                            <img src="src/images/watchlist-icon.svg" alt="Home" />
+                            <img src={watchlistIcon} alt="Home" />
                             <span>WATCHLIST</span>
                         </a>
                         <a href="/original">
-                            <img src="src/images/original-icon.svg" alt="Home" />
+                            <img src={originalIcon} alt="Home" />
                             <span>ORIGINALS</span>
                         </a>
                         <a href="/movies">
-                            <img src="src/images/movie-icon.svg" alt="Home" />
+                            <img src={movieIcon} alt="Home" />
                             <span>MOVIES</span>
                         </a>
                         <a href="/series">
-                            <img src="src/images/series-icon.svg" alt="Home" />
+                            <img src={seriesIcon} alt="Home" />
                             <span>SERIES</span>
                         </a>
                     </NavMenu>

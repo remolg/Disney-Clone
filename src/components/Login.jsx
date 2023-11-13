@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Header } from './Header';
+import ctaLogoOne from '../images/cta-logo-one.svg'
+import ctaLogoTwo from '../images/cta-logo-two.png'
 
 export const Login = () => {
     return (
@@ -8,10 +10,10 @@ export const Login = () => {
             <Content>
                 <Header />
                 <CTA>
-                    <CTALogoOne src="/src/images/cta-logo-one.svg" />
+                    <CTALogoOne src={ctaLogoOne} />
                     <SingUp>GET ALL THERE</SingUp>
                     <Description>Get Premier Acces to Raya and Last Dragon for an additional fee with a Dinsey+ subscription. As of 07/11/2023, the price of Disney+ and The  Disney Buindle will increase by $1.</Description>
-                    <CTALogoTwo src="/src/images/cta-logo-two.png" />
+                    <CTALogoTwo src={ctaLogoTwo} />
                 </CTA>
                 <BgImage />
             </Content>
