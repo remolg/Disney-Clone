@@ -18,7 +18,7 @@ export const ImgSlider = () => {
       <Carousel {...settings}>
         <Wrap>
           <a href="">
-            <img src="/src/images/slider-badging.jpg" alt="" />
+            <img src="src/images/slider-badging.jpg" alt="" />
           </a>
         </Wrap>
         <Wrap>
