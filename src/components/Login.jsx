@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Header } from './Header';
 import ctaLogoOne from '../images/cta-logo-one.svg'
 import ctaLogoTwo from '../images/cta-logo-two.png'
+import background from '../images/login-background.jpg'
 
 export const Login = () => {
     return (
@@ -48,7 +49,7 @@ const BgImage = styled.div`
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('src/images/login-background.jpg');
+    background-image: url(${background});
     position: absolute;
     top: 0;
     right: 0;
@@ -60,6 +61,7 @@ const CTA = styled.div`
     max-width: 650px;
     width: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
 `;
 
