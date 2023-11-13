@@ -22,4 +22,3 @@ const storage = getStorage(app);
 export { auth, provider, storage }
 
 export { db };
-
