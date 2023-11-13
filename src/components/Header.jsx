@@ -77,7 +77,7 @@ export const Header = (props) => {
                             <img src={homeIcon} alt="Home" />
                             <span>HOME</span>
                         </a>
-                        <a href="/search">
+                        <a href="#">
                             <img src={searchIcon} alt="Home" />
                             <span>SEARCH</span>
                         </a>
