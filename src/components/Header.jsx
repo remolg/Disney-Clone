@@ -73,28 +73,28 @@ export const Header = (props) => {
             ) : (
                 <>
                     <NavMenu>
-                        <a href="/home">
+                        <a href="#">
                             <img src={homeIcon} alt="Home" />
                             <span>HOME</span>
                         </a>
                         <a href="#">
-                            <img src={searchIcon} alt="Home" />
+                            <img src={searchIcon} alt="Search" />
                             <span>SEARCH</span>
                         </a>
-                        <a href="/watchlist">
-                            <img src={watchlistIcon} alt="Home" />
+                        <a href="#">
+                            <img src={watchlistIcon} alt="Watchlist" />
                             <span>WATCHLIST</span>
                         </a>
-                        <a href="/original">
-                            <img src={originalIcon} alt="Home" />
+                        <a href="#">
+                            <img src={originalIcon} alt="Originals" />
                             <span>ORIGINALS</span>
                         </a>
-                        <a href="/movies">
-                            <img src={movieIcon} alt="Home" />
+                        <a href="#">
+                            <img src={movieIcon} alt="Movies" />
                             <span>MOVIES</span>
                         </a>
-                        <a href="/series">
-                            <img src={seriesIcon} alt="Home" />
+                        <a href="#">
+                            <img src={seriesIcon} alt="Series" />
                             <span>SERIES</span>
                         </a>
                     </NavMenu>
