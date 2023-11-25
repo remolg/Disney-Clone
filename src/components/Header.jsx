@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { selectUserName, selectUserPhoto, setSignOutState, setUserLoginDetails } from '../features/user/userSlice'
 import logo from '../images/logo.svg'
 import homeIcon from '../images/home-icon.svg'
@@ -65,7 +65,9 @@ export const Header = (props) => {
     return (
         <Nav>
             <Logo>
-                <img src={logo} alt="" />
+                <Link to="/home">
+                    <img src={logo} alt="" />
+                </Link>
             </Logo>
 
             {!userName ? (
@@ -73,30 +75,30 @@ export const Header = (props) => {
             ) : (
                 <>
                     <NavMenu>
-                        <a href="#">
+                        <Link to="/home">
                             <img src={homeIcon} alt="Home" />
                             <span>HOME</span>
-                        </a>
-                        <a href="#">
+                        </Link>
+                        <Link to="/home">
                             <img src={searchIcon} alt="Search" />
                             <span>SEARCH</span>
-                        </a>
-                        <a href="#">
+                        </Link>
+                        <Link to="/home">
                             <img src={watchlistIcon} alt="Watchlist" />
                             <span>WATCHLIST</span>
-                        </a>
-                        <a href="#">
+                        </Link>
+                        <Link to="/home">
                             <img src={originalIcon} alt="Originals" />
                             <span>ORIGINALS</span>
-                        </a>
-                        <a href="#">
+                        </Link>
+                        <Link to="/home">
                             <img src={movieIcon} alt="Movies" />
                             <span>MOVIES</span>
-                        </a>
-                        <a href="#">
+                        </Link>
+                        <Link to="/home">
                             <img src={seriesIcon} alt="Series" />
                             <span>SERIES</span>
-                        </a>
+                        </Link>
                     </NavMenu>
                     <SignOut>
                         <UserImg src={userPhoto} alt={userName} />
