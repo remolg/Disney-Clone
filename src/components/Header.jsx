@@ -65,9 +65,16 @@ export const Header = (props) => {
     return (
         <Nav>
             <Logo>
-                <Link to="/home">
-                    <img src={logo} alt="" />
-                </Link>
+                {userName ? (
+                    <Link to="/home">
+                        <img src={logo} alt="" />
+                    </Link>
+                ) : (
+                    <Link to="/">
+                        <img src={logo} alt="" />
+                    </Link>
+                )
+                }
             </Logo>
 
             {!userName ? (
